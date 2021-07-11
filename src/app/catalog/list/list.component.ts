@@ -67,7 +67,6 @@ export class ListComponent implements OnInit {
   }
 
   applyFilters(urlChange?) {
-    console.log(this.selectedDropDown);
     if (urlChange) {
       this.router.navigate(["/catalog/list"], {
         queryParams: { sort: this.selectedDropDown },

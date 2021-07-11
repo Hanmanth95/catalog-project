@@ -1438,8 +1438,6 @@ export class CatalogService {
   ];
   constructor(private http: HttpClient) {}
   getIngredients(start) {
-    console.log("getIngredients");
-    console.log(start);
     let productsDto = {
       products: [],
       count: this.productsList.length,

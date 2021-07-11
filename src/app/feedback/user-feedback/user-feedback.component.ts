@@ -26,17 +26,14 @@ export class UserFeedbackComponent implements OnInit {
       this.feedbackHistory.push(
         ...JSON.parse(localStorage.getItem("feedbackHistory"))
       );
-      console.log(this.feedbackHistory);
     }
   }
 
   submitFeedback(f) {
-    console.log(f);
     if (!f.valid) {
       return;
     }
     this.feedbackHistory.push(f.form.value);
-    console.log(this.feedbackHistory);
     localStorage.setItem(
       "feedbackHistory",
       JSON.stringify(this.feedbackHistory)
