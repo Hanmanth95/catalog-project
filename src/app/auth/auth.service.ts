@@ -10,7 +10,7 @@ export class AuthService {
   canActivate(): boolean {
     if (localStorage.getItem("isLoggedIn")) {
       this.router.navigate(["/catalog/list"], {
-        queryParams: { sort: "hightolow" },
+        queryParams: { start: 0, sort: "hightolow" },
       });
       return false;
     }

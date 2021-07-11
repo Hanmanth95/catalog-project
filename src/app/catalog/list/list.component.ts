@@ -1,6 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { orderBy } from "lodash";
 import { CatalogService } from "../../services/catalog.service";
 
 @Component({
@@ -26,23 +25,33 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.selectedDropDown = this.fltArr[0];
-    let apiResponse = this.catalog.getIngredients(this.start);
-    this.productList.push(...apiResponse.products);
-    this.totalCount = apiResponse.count;
     this.paramSubscriber = this.route.queryParams.subscribe((params) => {
       this.selectedDropDown = params.sort;
-      this.applyFilters();
+      this.start = params.start;
+      if (this.selectedDropDown == "lowtohigh") {
+        this.order = "asc";
+      } else {
+        this.order = "desc";
+      }
+      let apiResponse = this.catalog.getIngredients(this.start, this.order);
+      if (this.start == 0) {
+        this.productList = apiResponse.products;
+      } else {
+        this.productList.push(...apiResponse.products);
+      }
+      this.totalCount = apiResponse.count;
     });
-    this.applyFilters();
   }
 
   onScroll() {
     if (this.productList.length == this.totalCount) {
       return;
     }
-    let apiResponse = this.catalog.getIngredients(this.productList.length);
+    let apiResponse: any = this.catalog.getIngredients(
+      this.productList.length,
+      this.order
+    );
     this.productList.push(...apiResponse.products);
-    this.applyFilters();
   }
 
   @HostListener("window:scroll", [])
@@ -66,20 +75,14 @@ export class ListComponent implements OnInit {
     }
   }
 
-  applyFilters(urlChange?) {
-    if (urlChange) {
-      this.router.navigate(["/catalog/list"], {
-        queryParams: { sort: this.selectedDropDown },
-      });
-    }
-
+  applyFilters() {
     if (this.selectedDropDown == "lowtohigh") {
-      this.productList.sort();
       this.order = "asc";
     } else {
-      this.productList.sort().reverse();
       this.order = "desc";
     }
-    this.productList = orderBy(this.productList, [this.column], [this.order]);
+    this.router.navigate(["/catalog/list"], {
+      queryParams: { start: 0, sort: this.selectedDropDown },
+    });
   }
 }

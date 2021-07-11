@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
+import { orderBy } from "lodash";
 
 @Injectable({
   providedIn: "root",
@@ -1437,7 +1438,13 @@ export class CatalogService {
     },
   ];
   constructor(private http: HttpClient) {}
-  getIngredients(start) {
+  getIngredients(start, sortOrder) {
+    if (sortOrder == "asc") {
+      this.productsList.sort();
+    } else {
+      this.productsList.sort().reverse();
+    }
+    this.productsList = orderBy(this.productsList, ["Price"], [sortOrder]);
     let productsDto = {
       products: [],
       count: this.productsList.length,

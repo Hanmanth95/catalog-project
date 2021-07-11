@@ -43,7 +43,7 @@ export class AuthComponent {
     localStorage.setItem("isLoggedIn", "true");
     this.authObs.authCheck.next("LOGIN_CHECK");
     this.router.navigate(["/catalog/list"], {
-      queryParams: { sort: "hightolow" },
+      queryParams: { start: 0, sort: "hightolow" },
     });
     form.reset();
   }
