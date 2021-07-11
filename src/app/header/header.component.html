@@ -4,24 +4,18 @@
       <div class="col-lg-10">
         <div class="navbar-header">
           <a class="navbar-brand" routerLink="/login">
-            <img src="../../assets/revalsys-logo.png" alt="revalsys" />
+            <img src="../assets/revalsys-logo.png" alt="revalsys" />
           </a>
         </div>
       </div>
       <div class="col-lg-2">
-        <div
-          *ngIf="isLoggedIn"
-          class="collapse navbar-collapse mt-15"
-          id="bs-example-navbar-collapse-1"
-        >
+        <div *ngIf="isLoggedIn" class="collapse navbar-collapse mt-15" id="bs-example-navbar-collapse-1">
           <span
             ><a routerLink="/catalog/list" [queryParams]="{ sort: 'hightolow' }"
               >Catalog</a
-            ></span
-          >
+            ></span>
           <span class="ml-15"
-            ><a routerLink="/feedback/user-feedback">Feedback</a></span
-          >
+            ><a routerLink="/feedback/user-feedback">Feedback</a></span>
           <span class="ml-15"><a href="" (click)="logout()">Logout</a></span>
         </div>
       </div>
