@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-lg-3">
+    <h3>Filters</h3>
+    <div class="row p-10">
+      <div class="col-lg-2">
+        <span>Price: </span>
+      </div>
+      <div class="col-lg-8">
+        <span>
+          <select
+            [(ngModel)]="selectedDropDown"
+            name="city"
+            class="w-100 rounded-inputs20 select-select col-md-3"
+          >
+            <option *ngFor="let filt of fltArr" [value]="filt">
+              {{ filt }}
+            </option>
+          </select>
+        </span>
+      </div>
+      <div class="w-100 mt-15" role="group" aria-label="button">
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="applyFilters(true)"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-9">
+    <div class="row p-10 card-list" *ngFor="let item of productList">
+      <div class="col-lg-4 h-100-per">
+        <div class="user-select-none">
+          <a
+            class="prev-nxt"
+            id="prev"
+            [ngClass]="{ 'disabled-anchor': item.ColorsCount == 0 }"
+            (click)="previousImage(item)"
+            role="button"
+          >
+            <span
+              class="glyphicon glyphicon-chevron-left"
+              aria-hidden="true"
+            ></span>
+          </a>
+          <a
+            class="prev-nxt"
+            id="next"
+            [ngClass]="{
+              'disabled-anchor': item.ColorsCount == item.Images.length - 1
+            }"
+            (click)="nextImage(item)"
+            role="button"
+          >
+            <span
+              class="glyphicon glyphicon-chevron-right"
+              aria-hidden="true"
+            ></span>
+          </a>
+          <img
+            src="{{ item.ListImagePath + item.Images[item.ColorsCount] }}"
+            alt="{{ item.ProductTitle }}"
+          />
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <h3 class="pl-12">{{ item.ProductTitle }}</h3>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <p>
+              <span class="grey-fg">Product Id:</span>
+              <span class="dark-grey-fb">
+                {{ item.ProductId }}
+              </span>
+            </p>
+            <p>
+              <span class="grey-fg">Collection:</span>
+              <span class="dark-grey-fb">
+                {{ item.Collection }}
+              </span>
+            </p>
+
+            <p>
+              <span class="grey-fg">Style:</span>
+              <span class="dark-grey-fb">
+                {{ item.StyleName }}
+              </span>
+            </p>
+            <p>
+              <span class="grey-fg">Style Number:</span>
+              <span class="dark-grey-fb">
+                {{ item.StyleNumber }}
+              </span>
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <p>
+              <span class="grey-fg">Price:</span>
+              <span class="dark-grey-fb">
+                {{ "₹" + item.Price }}
+              </span>
+            </p>
+            <p>
+              <span class="grey-fg">Quantity:</span>
+              <span class="dark-grey-fb">
+                {{ item.NetQuantity }}
+              </span>
+            </p>
+            <p>
+              <span class="grey-fg">Available Sizes:</span>
+              <span class="dark-grey-fb">
+                {{ item.AvailableSizes }}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

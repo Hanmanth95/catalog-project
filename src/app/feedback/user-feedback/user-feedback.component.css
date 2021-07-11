@@ -1,0 +1,33 @@
+.mt-20 {
+  margin-top: 20px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.red-fg {
+  color: #de4f60;
+}
+
+.user-name {
+  height: 60px;
+  border: 1px solid grey;
+  width: 65px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.white-fg {
+  color: #fff;
+}
+
+.name {
+  height: 100%;
+  margin-top: 15px;
+  font-size: 20px;
+}

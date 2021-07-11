@@ -1,0 +1,71 @@
+.mb-10 {
+  margin-bottom: 10px;
+}
+.disabled-anchor {
+  cursor: none;
+  pointer-events: none;
+  color: gray;
+}
+
+.user-select-none {
+  user-select: none;
+}
+
+.card-list {
+  border: 1px solid grey;
+  margin-bottom: 10px;
+  height: 220px;
+  padding: 5px;
+}
+
+img {
+  width: 250px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.prev-nxt {
+  position: absolute;
+  top: 50%;
+  font-size: 25px;
+}
+
+.prev-nxt#next {
+  right: 0;
+}
+
+.pl-12 {
+  padding-left: 12px;
+}
+
+.grey-fg {
+  color: grey;
+  font-size: 14px;
+  width: 200px;
+}
+
+.dark-grey-fg {
+  color: rgb(29, 26, 26);
+  font-size: 14px;
+}
+
+.h-100-per {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+button {
+  margin: 40px auto;
+  display: block;
+}
+
+/* .mt-15 {
+  margin-top: 15px;
+} */
