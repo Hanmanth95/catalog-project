@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { orderBy } from "lodash";
-import { CatalogService } from "src/app/services/catalog.service";
+import { CatalogService } from "../../services/catalog.service";
 
 @Component({
   selector: "app-list",
