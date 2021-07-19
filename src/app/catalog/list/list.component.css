@@ -66,6 +66,14 @@ button {
   display: block;
 }
 
-/* .mt-15 {
+.mt-15 {
   margin-top: 15px;
-} */
+}
+
+.width-100 {
+  width: 100px;
+}
+
+.p-30 {
+  padding: 30px;
+}

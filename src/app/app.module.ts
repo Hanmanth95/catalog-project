@@ -8,6 +8,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { RouterModule } from "@angular/router";
 import { HeaderComponent } from "./header/header.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, HeaderComponent],
@@ -17,6 +18,7 @@ import { HeaderComponent } from "./header/header.component";
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
+    NgbModule,
   ],
   bootstrap: [AppComponent],
 })

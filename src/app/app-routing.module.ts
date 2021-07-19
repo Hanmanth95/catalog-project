@@ -16,11 +16,6 @@ const appRoutes: Routes = [
       import("./catalog/catalog.module").then((m) => m.CatalogModule),
   },
   {
-    path: "feedback",
-    loadChildren: () =>
-      import("./feedback/feedback.module").then((m) => m.FeedbackModule),
-  },
-  {
     path: "**",
     component: AuthComponent,
     canActivate: [AuthService],
@@ -29,6 +24,6 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forRoot(appRoutes)],
+  imports: [CommonModule, RouterModule.forRoot(appRoutes, { useHash: true })],
 })
 export class AppRoutingModule {}

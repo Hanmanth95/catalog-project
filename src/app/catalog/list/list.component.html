@@ -1,121 +1,189 @@
-<div class="row">
-  <div class="col-lg-3">
-    <h3>Filters</h3>
-    <div class="row p-10">
-      <div class="col-lg-2">
-        <span>Price: </span>
-      </div>
-      <div class="col-lg-8">
-        <span>
-          <select
-            [(ngModel)]="selectedDropDown"
-            name="city"
-            class="w-100 rounded-inputs20 select-select col-md-3"
-          >
-            <option *ngFor="let filt of fltArr" [value]="filt">
-              {{ filt }}
-            </option>
-          </select>
-        </span>
-      </div>
-      <div class="w-100 mt-15" role="group" aria-label="button">
-        <button type="button" class="btn btn-default" (click)="applyFilters()">
-          Apply
-        </button>
+<div class="container mt-15 p-30">
+  <div class="row">
+    <div class="w-100">
+      <button
+        type="button"
+        (click)="openLg(template)"
+        class="btn btn-warning float-right"
+      >
+        New Order
+      </button>
+    </div>
+    <div class="col-lg-12" *ngIf="productList.length > 0">
+      <div class="row p-30 card-list" *ngFor="let item of productList">
+        <div class="col-lg-10">
+          <div class="row">
+            <div class="col-lg-6">
+              <p *ngIf="item.orderNo">
+                <span class="grey-fg">Order Number:</span>
+                <span class="dark-grey-fb">
+                  {{ item.orderNo }}
+                </span>
+              </p>
+              <p *ngIf="item.orderDueDate">
+                <span class="grey-fg">Order Due Date:</span>
+                <span class="dark-grey-fb">
+                  {{ item.orderDueDate }}
+                </span>
+              </p>
+
+              <p *ngIf="item.orderValue">
+                <span class="grey-fg">Order Value</span>
+                <span class="dark-grey-fb">
+                  {{ "₹" + item.orderValue }}
+                </span>
+              </p>
+            </div>
+            <div class="col-lg-6">
+              <p *ngIf="item.buyerName">
+                <span class="grey-fg">Buyer Name:</span>
+                <span class="dark-grey-fb">
+                  {{ item.buyerName }}
+                </span>
+              </p>
+              <p *ngIf="item.buyerAddr">
+                <span class="grey-fg">Buyer Address:</span>
+                <span class="dark-grey-fb">
+                  {{ item.buyerAddr }}
+                </span>
+              </p>
+              <p *ngIf="item.mobileNo">
+                <span class="grey-fg">Buyer Phone:</span>
+                <span class="dark-grey-fb">
+                  {{ item.mobileNo }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <div>
+            <button
+              type="button"
+              class="btn btn-primary width-100"
+              (click)="editProduct(item, template)"
+            >
+              Edit
+            </button>
+            <button
+              (click)="deleteProduct(item)"
+              type="button"
+              class="btn btn-danger width-100"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="col-lg-9">
-    <div class="row p-10 card-list" *ngFor="let item of productList">
-      <div class="col-lg-4 h-100-per">
-        <div class="user-select-none">
-          <a
-            class="prev-nxt"
-            id="prev"
-            [ngClass]="{ 'disabled-anchor': item.ColorsCount == 0 }"
-            (click)="previousImage(item)"
-            role="button"
-          >
-            <span
-              class="glyphicon glyphicon-chevron-left"
-              aria-hidden="true"
-            ></span>
-          </a>
-          <a
-            class="prev-nxt"
-            id="next"
-            [ngClass]="{
-              'disabled-anchor': item.ColorsCount == item.Images.length - 1
-            }"
-            (click)="nextImage(item)"
-            role="button"
-          >
-            <span
-              class="glyphicon glyphicon-chevron-right"
-              aria-hidden="true"
-            ></span>
-          </a>
-          <img
-            src="{{ item.ListImagePath + item.Images[item.ColorsCount] }}"
-            alt="{{ item.ProductTitle }}"
-          />
-        </div>
-      </div>
-      <div class="col-lg-8">
-        <div class="row">
-          <h3 class="pl-12">{{ item.ProductTitle }}</h3>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <p>
-              <span class="grey-fg">Product Id:</span>
-              <span class="dark-grey-fb">
-                {{ item.ProductId }}
-              </span>
-            </p>
-            <p>
-              <span class="grey-fg">Collection:</span>
-              <span class="dark-grey-fb">
-                {{ item.Collection }}
-              </span>
-            </p>
-
-            <p>
-              <span class="grey-fg">Style:</span>
-              <span class="dark-grey-fb">
-                {{ item.StyleName }}
-              </span>
-            </p>
-            <p>
-              <span class="grey-fg">Style Number:</span>
-              <span class="dark-grey-fb">
-                {{ item.StyleNumber }}
-              </span>
-            </p>
-          </div>
-          <div class="col-lg-6">
-            <p>
-              <span class="grey-fg">Price:</span>
-              <span class="dark-grey-fb">
-                {{ "₹" + item.Price }}
-              </span>
-            </p>
-            <p>
-              <span class="grey-fg">Quantity:</span>
-              <span class="dark-grey-fb">
-                {{ item.NetQuantity }}
-              </span>
-            </p>
-            <p>
-              <span class="grey-fg">Available Sizes:</span>
-              <span class="dark-grey-fb">
-                {{ item.AvailableSizes }}
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
+    <div class="col-lg-12" *ngIf="productList.length == 0">
+      Please add your product to see here.
     </div>
   </div>
 </div>
+
+<ng-template let-modal #template>
+  <div class="modal-header">
+    <h4 class="modal-title">Add Product</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" name="addProduct" novalidate (ngSubmit)="addProduct(f)">
+      <div class="form-group">
+        <label for="orderNo">Order Number</label>
+        <input
+          type="number"
+          class="form-control"
+          id="orderNo"
+          name="orderNo"
+          required
+          [(ngModel)]="productsFields.Order_Number"
+          placeholder="Order Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="orderDueDate">Order Due Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="orderDueDate"
+          name="orderDueDate"
+          required
+          [(ngModel)]="productsFields.Order_Due_Date"
+          placeholder="Order Due Date"
+        />
+      </div>
+      <div class="form-group">
+        <label for="orderValue">Order Value</label>
+        <input
+          type="number"
+          class="form-control"
+          id="orderValue"
+          name="orderValue"
+          required
+          [(ngModel)]="productsFields.Order_Value"
+          placeholder="Order Value"
+        />
+      </div>
+      <div class="form-group">
+        <label for="buyerName">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="buyerName"
+          name="buyerName"
+          required
+          [(ngModel)]="productsFields.Buyer_Name"
+          placeholder="Buyer Name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="buyerAddr">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="buyerAddr"
+          name="buyerAddr"
+          required
+          [(ngModel)]="productsFields.Buyer_Address"
+          placeholder="Buyer Address"
+        />
+      </div>
+      <div class="form-group">
+        <label for="mobileNo">Mobile Number</label>
+        <input
+          type="number"
+          class="form-control"
+          id="mobileNo"
+          name="mobileNo"
+          required
+          [(ngModel)]="productsFields.Buyer_Mobile"
+          placeholder="Mobile Number"
+        />
+      </div>
+      <div class="row justify-content-end">
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-light"
+            (click)="modal.close('Close')"
+          >
+            Close
+          </button>
+        </div>
+        <div class="col-3">
+          <button [disabled]="!f.valid" type="submit" class="btn btn-light">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -14,9 +14,9 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private catalog: CatalogService) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = localStorage.getItem("isLoggedIn");
+    this.isLoggedIn = localStorage.getItem("token") ? true : false;
     this.listenEvent = this.catalog.authCheck.subscribe((data) => {
-      this.isLoggedIn = localStorage.getItem("isLoggedIn");
+      this.isLoggedIn = localStorage.getItem("token") ? true : false;
     });
   }
 

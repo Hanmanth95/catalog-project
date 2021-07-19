@@ -2,6 +2,7 @@ import { Component, OnDestroy } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CatalogService } from "../services/catalog.service";
+import { AuthService } from "./auth.service";
 
 @Component({
   selector: "app-auth",
@@ -11,7 +12,11 @@ import { CatalogService } from "../services/catalog.service";
 export class AuthComponent {
   emailError = false;
   pwdError = false;
-  constructor(private router: Router, private authObs: CatalogService) {}
+  constructor(
+    private router: Router,
+    private authObs: CatalogService,
+    private authService: AuthService
+  ) {}
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
@@ -40,11 +45,24 @@ export class AuthComponent {
     } else {
       this.pwdError = false;
     }
-    localStorage.setItem("isLoggedIn", "true");
-    this.authObs.authCheck.next("LOGIN_CHECK");
-    this.router.navigate(["/catalog/list"], {
-      queryParams: { start: 0, sort: "hightolow" },
-    });
-    form.reset();
+
+    this.authService.login({ email: email, password: password }).subscribe(
+      (res) => {
+        console.log("login response");
+        console.log(res);
+        if (res.token) {
+          localStorage.setItem("token", res.token);
+          this.authObs.authCheck.next("LOGIN_CHECK");
+          this.router.navigate(["/catalog/list"], {
+            queryParams: { start: 0, sort: "hightolow" },
+          });
+        }
+        form.reset();
+      },
+      (err) => {
+        console.log("error occured");
+        console.log(err);
+      }
+    );
   }
 }

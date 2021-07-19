@@ -1,26 +1,29 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-10">
-        <div class="navbar-header">
-          <a class="navbar-brand" routerLink="/login">
-            <img src="https://cdn.jsdelivr.net/gh/Hanmanth95/catalog-project@master/src/assets/revalsys-logo.png" alt="revalsys" />
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-2">
-        <div *ngIf="isLoggedIn" class="collapse navbar-collapse mt-15" id="bs-example-navbar-collapse-1">
-          <span
-            ><a
-              routerLink="/catalog/list"
-              [queryParams]="{ start: 0, sort: 'hightolow' }"
-              >Catalog</a
-            ></span>
-          <span class="ml-15"
-            ><a routerLink="/feedback/user-feedback">Feedback</a></span>
-          <span class="ml-15"><a href="" (click)="logout()">Logout</a></span>
-        </div>
-      </div>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <a class="navbar-brand" routerLink="/login">
+    <img
+      class="h-60"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRufOrk-OoCJrVrZ8sV6v-EutT-eiJSiD3Fow&usqp=CAU"
+      alt="Navtech"
+    />
+  </a>
+  <div
+    class="collapse navbar-collapse justify-content-lg-end"
+    id="navbarNav"
+    *ngIf="isLoggedIn"
+  >
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a
+          *ngIf="isLoggedIn"
+          class="nav-link"
+          routerLink="/catalog/list"
+          [queryParams]="{ start: 0, sort: 'hightolow' }"
+          >Catalog</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="" (click)="logout()">Logout</a>
+      </li>
+    </ul>
   </div>
 </nav>
